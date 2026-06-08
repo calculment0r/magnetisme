@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>03 · Moteur, induction, générateur — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 3 : le moteur à courant continu, la loi de Lenz-Faraday et le générateur — la réversibilité expliquée et animée.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-3">
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 03 / 07</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">03</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">03<span class="dot">.</span></div>
+    <h1>Moteur,<br>induction,<br>générateur</h1>
+    <p class="hero__lead"><em class="lead">La même machine fabrique du mouvement à partir du courant — ou du courant à partir du mouvement.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot"></span> Niveau <b>socle · lycée</b></span>
+      <span class="chip"><b>~11 min</b> de lecture</span>
+      <span class="chip">3 schémas <b>au doigt</b></span>
+      <span class="chip">QCM <b>7 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- POURQUOI -->
+<section class="section">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>Tout ce qui tourne, et tout ce qui alimente.</h3>
+      <p>Le <strong>moteur</strong> du zoom, de la mise au point, d'un gimbal, d'un drone : du courant qui devient mouvement. Et l'inverse — un <strong>groupe électrogène</strong> sur un tournage, une dynamo de vélo : du mouvement qui devient courant. C'est le même phénomène, dans les deux sens.</p>
+      <ul class="applist">
+        <li>Moteurs d'objectif, de stabilisation, de tête motorisée.</li>
+        <li>Groupe électrogène, alternateur de voiture, dynamo.</li>
+        <li>Et, au cours 5, le micro dynamique : le haut-parleur à l'envers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §3.1 MOTEUR -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§3.1</span></div>
+      <h2>Le moteur : du courant qui tourne</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">C'est la force de Laplace, mais sur une boucle — alors elle tourne.</p>
+      <p>Place une bobine parcourue par un courant entre les pôles d'un aimant. Chaque côté de la bobine subit une force de Laplace, et ces deux forces opposées forment un <strong>couple</strong> : la bobine se met à tourner. Plus le courant est fort, plus ça tourne vite ; inverse le courant, ça tourne dans l'autre sens.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">Le couple qui fait tourner</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvMot"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Intensité du courant</span><b id="motIval">5 A</b></div>
+          <input type="range" id="motI" min="0.12" max="1" step="0.01" value="0.55">
+        </div>
+        <button class="btn btn--accent" id="motDir" style="flex-basis:100%">Sens du courant ⇄</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="motHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Forces de Laplace (le couple)</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> La bobine (rotor)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- §3.2 INDUCTION -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§3.2</span></div>
+      <h2>La deuxième phrase : l'induction</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Un aimant qui bouge près d'une bobine y fait apparaître une tension.</p>
+      <p>C'est la <strong>loi de Lenz-Faraday</strong>. Le point crucial : seule la <strong>variation</strong> compte. Un aimant immobile devant la bobine ne produit rien ; c'est en <strong>l'approchant ou l'éloignant</strong> qu'on crée du courant. Et plus tu vas vite, plus la tension est grande.</p>
+      <p>La <strong>loi de Lenz</strong> ajoute une règle : le courant induit s'oppose toujours à la cause qui le crée (la nature résiste au changement).</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">Bouge l'aimant — l'aiguille réagit</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvInd"></canvas></div>
+      <div class="controls">
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="indHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Aiguille (tension induite)</span>
+        <span class="lg">Glisse l'aimant au doigt vers/loin de la bobine</span>
+      </div>
+    </figure>
+
+    <div class="unit" style="margin-top:clamp(22px,5vw,32px)">
+      <div class="unit__symbol" style="font-size:clamp(26px,8vw,40px)">e = −ΔΦ/Δt</div>
+      <div class="unit__body">
+        <h3>La formule, en mots</h3>
+        <p>La tension induite <strong>e</strong> est d'autant plus grande que le <strong>flux Φ</strong> (la « quantité de champ » qui traverse la bobine) varie <strong>vite</strong>. Le signe « − » est la loi de Lenz : le courant créé s'oppose au changement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3.3 GÉNÉRATEUR -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§3.3</span></div>
+      <h2>Le générateur : du mouvement qui devient courant</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Fais tourner un aimant devant une bobine, en continu : tu obtiens du courant.</p>
+      <p>À chaque tour, le flux monte puis descend : la tension induite oscille, tantôt positive, tantôt négative. C'est du <strong>courant alternatif</strong>. Plus tu tournes vite, plus la tension est forte et rapide. C'est exactement ce que fait un alternateur ou un groupe électrogène.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma C</span>
+        <span class="figure__title">Rotation → tension alternative</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvGen"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Vitesse de rotation</span><b id="genVval">moyenne</b></div>
+          <input type="range" id="genV" min="0.1" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="genHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Tension induite (alternative)</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Aimant en rotation</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- §3.4 RÉVERSIBILITÉ -->
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">La réversibilité n°1</span>
+      <h3>Moteur ⇄ Générateur : la même machine, à l'envers</h3>
+      <p>Tu lui donnes du <strong>courant</strong>, elle te donne du <strong>mouvement</strong> : c'est un moteur (phrase 1). Tu lui donnes du <strong>mouvement</strong>, elle te donne du <strong>courant</strong> : c'est un générateur (phrase 2). Un même objet, deux sens de lecture. Garde ce réflexe : pour chaque appareil, demande-toi ce qui entre et ce qui sort.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUR UN PLATEAU -->
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Où ça travaille</h3>
+      <p>Les moteurs qui animent objectifs, gimbals et têtes motorisées appliquent le couple du Schéma A. Le <strong>groupe électrogène</strong> qui alimente un tournage en extérieur, c'est un générateur : un moteur thermique fait tourner un alternateur. Et le <strong>freinage par induction</strong> (cours 4) vient directement de la loi de Lenz vue ici.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+    <div class="quiz">
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">Un moteur électrique transforme&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Du courant en mouvement</button>
+          <button class="opt"><span class="key">B</span> Du mouvement en courant</button>
+          <button class="opt"><span class="key">C</span> De la chaleur en lumière</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Entrée = courant, sortie = mouvement : c'est la <strong>phrase 1</strong> (Laplace), appliquée à une bobine qui tourne.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">Qu'est-ce qui fait apparaître une tension induite dans une bobine&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Un aimant posé immobile à côté</button>
+          <button class="opt"><span class="key">B</span> Une variation du flux (un aimant qui bouge)</button>
+          <button class="opt"><span class="key">C</span> Le simple fait de brancher la bobine</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Seule la <strong>variation</strong> du flux induit une tension. Aimant immobile = rien.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">La loi de Lenz dit que le courant induit&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Amplifie la cause qui le crée</button>
+          <button class="opt"><span class="key">B</span> Est toujours nul</button>
+          <button class="opt"><span class="key">C</span> S'oppose à la cause qui le crée</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le courant induit <strong>s'oppose</strong> au changement (« la nature résiste »). C'est le signe « − » de la formule.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">Un générateur (alternateur) transforme&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Du courant en chaleur</button>
+          <button class="opt"><span class="key">B</span> Du mouvement en courant</button>
+          <button class="opt"><span class="key">C</span> De la lumière en courant</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Entrée = mouvement, sortie = courant : c'est la <strong>phrase 2</strong> (induction).</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">Moteur et générateur, c'est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Deux appareils sans rapport</button>
+          <button class="opt"><span class="key">B</span> Deux noms pour une résistance</button>
+          <button class="opt"><span class="key">C</span> La même machine, dans les deux sens</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Même machine : courant → mouvement (moteur), mouvement → courant (générateur). La réversibilité n°1.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">Tu approches un aimant d'une bobine de plus en plus vite. La tension induite&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Ne change pas</button>
+          <button class="opt"><span class="key">B</span> Augmente</button>
+          <button class="opt"><span class="key">C</span> Disparaît</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Plus le flux varie <strong>vite</strong>, plus la tension est grande (e = −ΔΦ/Δt).</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">Pourquoi la bobine du moteur tourne-t-elle&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> La force de Laplace sur ses côtés crée un couple</button>
+          <button class="opt"><span class="key">B</span> Parce qu'elle chauffe</button>
+          <button class="opt"><span class="key">C</span> Par la gravité</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Deux forces de Laplace opposées sur les côtés = un <strong>couple</strong> = rotation.</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 08 · piège</div>
+        <div class="q__text">Tu approches un aimant d'une bobine, puis tu le tiens immobile tout près. Pendant qu'il est immobile&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Le courant induit est maximal</button>
+          <button class="opt"><span class="key">B</span> Il n'y a aucun courant induit</button>
+          <button class="opt"><span class="key">C</span> Le courant continue d'augmenter</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Sans <strong>variation</strong> de flux, pas d'induction. Immobile = rien, même tout près.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Tu fais tourner le générateur deux fois plus vite. La tension produite&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Ne change pas</button>
+          <button class="opt"><span class="key">B</span> Double environ</button>
+          <button class="opt"><span class="key">C</span> Est divisée par deux</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le flux varie deux fois plus vite → tension <strong>~doublée</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Tu pousses un aimant vers une bobine. Le courant induit crée un champ qui&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Aspire l'aimant vers la bobine</button>
+          <button class="opt"><span class="key">B</span> Repousse l'aimant (s'oppose au mouvement)</button>
+          <button class="opt"><span class="key">C</span> N'a aucun effet sur l'aimant</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Loi de Lenz : l'effet <strong>s'oppose à la cause</strong> → l'aimant est freiné/repoussé.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 10 questions ci-dessus.</div>
+  </div>
+</section>
+
+<!-- GLOSSAIRE -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 3</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<footer class="footnav">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="cours-4.html">
+      <div class="nextcard__l">
+        <div class="k">Cours 04 · suivant</div>
+        <div class="t">Transformateur & induction</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">Lire →</div>
+    </a>
+    <div class="colophon">
+      <span><a href="cours-2.html" style="color:var(--ink-3)">← Cours 02</a></span>
+      <span class="dotsep"></span>
+      <span>Cours 03 / 07</span>
+      <span class="dotsep"></span>
+      <span><a href="index.html" style="color:var(--ink-3)">Sommaire</a></span>
+    </div>
+  </div>
+</footer>
+
+<script id="glossData" type="application/json">
+[
+ ["Flux magnétique (Φ)","La « quantité de champ » qui traverse une surface (une bobine). Il dépend du champ, de la surface et de leur orientation. C'est sa variation qui crée une tension induite.","Comme la quantité d'eau qui passe à travers un cerceau."],
+ ["Induction (Lenz-Faraday)","Le phénomène par lequel une variation de flux fait naître une tension dans un circuit. Base du générateur, du transformateur et du micro dynamique.","Bouge un aimant près d'une bobine : une ampoule reliée s'allume."],
+ ["Fem induite (e)","La tension qui apparaît quand le flux varie : e = −ΔΦ/Δt. Plus le flux change vite, plus elle est grande.","Nulle si rien ne bouge ; maximale si ça varie vite."],
+ ["Loi de Lenz","Le courant induit s'oppose toujours à la cause qui le crée. C'est l'origine du signe « − ».","La nature est paresseuse : elle résiste au changement."],
+ ["Moteur à courant continu","Une bobine parcourue par un courant, placée dans un champ : la force de Laplace crée un couple qui la fait tourner.","Le moteur de mise au point ou de gimbal."],
+ ["Couple","Deux forces opposées qui font tourner un objet autour d'un axe (plutôt que de le déplacer).","Comme tes deux mains sur un volant, en sens inverses."],
+ ["Générateur / Alternateur","Une bobine ou un aimant qu'on fait tourner : le flux varie, une tension alternative apparaît. L'inverse du moteur.","Le groupe électrogène, l'alternateur de voiture."],
+ ["Réversibilité","Le fait qu'une même machine marche dans les deux sens : courant→mouvement (moteur) ou mouvement→courant (générateur).","Un objet, deux sens de lecture : entrée et sortie échangées."]
+]
+</script>
+<script>
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-3.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

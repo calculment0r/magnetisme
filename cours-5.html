@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>05 · AC-DC, micro, hystérésis — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 5 : transformer l'alternatif en continu, le microphone dynamique et l'hystérésis magnétique.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-5">
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 05 / 07</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">05</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">05<span class="dot">.</span></div>
+    <h1>AC → DC,<br>micro,<br>hystérésis</h1>
+    <p class="hero__lead"><em class="lead">Comment une prise alternative devient le courant continu de ton matériel — et le micro, c'est le haut-parleur à l'envers.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot lvl-dot--orange"></span> Niveau <b>post-bac</b></span>
+      <span class="chip"><b>~11 min</b> de lecture</span>
+      <span class="chip">3 schémas <b>au doigt</b></span>
+      <span class="chip">QCM <b>7 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>L'alim de ta caméra, et le micro de la perche.</h3>
+      <p>La prise murale donne de l'<strong>alternatif</strong> ; ta caméra, elle, veut du <strong>continu</strong> bien lisse. Entre les deux, une alimentation fait la conversion. Et le <strong>micro dynamique</strong> de la perche, c'est exactement un haut-parleur fonctionnant à l'envers.</p>
+      <ul class="applist">
+        <li>Blocs d'alimentation, chargeurs : alternatif → continu.</li>
+        <li>Micro dynamique = la réversibilité n°2 (haut-parleur ⇄ micro).</li>
+        <li>L'hystérésis : la « mémoire » magnétique, jadis utilisée pour enregistrer.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §5.1 AC -> DC -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§5.1</span></div>
+      <h2>De l'alternatif au continu</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Trois étapes : on abaisse, on redresse, on lisse.</p>
+      <p>Le <strong>transformateur</strong> abaisse la tension (cours 4). Un <strong>redresseur</strong> retourne les alternances négatives vers le haut : la tension est toujours positive, mais bosselée. Enfin un <strong>filtre</strong> (un condensateur) <strong>lisse</strong> ces bosses en un continu presque plat. C'est le principe de toute alimentation.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">Redresser puis lisser</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvRect"></canvas></div>
+      <div class="controls">
+        <button class="btn" id="rectAC">Alternatif</button>
+        <button class="btn" id="rectRed">+ Redressé</button>
+        <button class="btn btn--accent" id="rectFilt">+ Lissé</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="rectHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Tension d'entrée (alternative)</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Tension de sortie</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- §5.2 MICRO -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§5.2</span></div>
+      <h2>Le micro dynamique : le haut-parleur à l'envers</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Le son fait bouger une membrane + bobine dans un aimant → une tension apparaît.</p>
+      <p>C'est l'induction (cours 3) appliquée au son. Dans le haut-parleur, le courant faisait bouger la membrane ; ici, c'est le <strong>son qui fait bouger la membrane</strong>, et le mouvement de la bobine dans l'aimant induit une <strong>tension</strong> : le signal audio. Même objet, sens inversé. C'est la <strong>réversibilité n°2</strong>.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">Le son devient signal</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvMic"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Force du son</span><b id="micVval">moyen</b></div>
+          <input type="range" id="micV" min="0.05" max="1" step="0.01" value="0.55">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="micHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Onde sonore → membrane</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Tension induite (le signal)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- §5.3 HYSTERESIS -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§5.3</span></div>
+      <h2>L'hystérésis : la mémoire du fer</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Un matériau magnétique garde la trace de son aimantation passée.</p>
+      <p>Quand on aimante puis désaimante un morceau de fer, il ne repasse pas par le même chemin : il <strong>retarde</strong>, il garde une mémoire. La courbe forme une <strong>boucle</strong>. C'est ce qui permettait d'enregistrer le son sur une bande magnétique, et c'est aussi une source de pertes (chaleur) dans les transformateurs.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma C</span>
+        <span class="figure__title">La boucle d'hystérésis</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvHyst"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Champ appliqué (va-et-vient)</span><b id="hystVal">—</b></div>
+          <input type="range" id="hystH" min="0" max="1" step="0.001" value="0.5">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="hystHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg">Horizontal : champ appliqué (H)</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Vertical : aimantation (B)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Où ça travaille</h3>
+      <p>Toutes les <strong>alimentations</strong> appliquent le Schéma A. Le <strong>micro dynamique</strong> (robuste, sans pile) équipe perches et voix fortes — il n'a pas besoin d'alimentation justement parce qu'il <em>génère</em> son signal par induction. Et l'hystérésis, c'est l'héritage des <strong>bandes magnétiques</strong> et des magnétos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+    <div class="quiz">
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">Pour passer de l'alternatif au continu, on&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Augmente la fréquence</button>
+          <button class="opt"><span class="key">B</span> Redresse puis lisse (filtre)</button>
+          <button class="opt"><span class="key">C</span> Ajoute un aimant</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> On <strong>redresse</strong> (tout devient positif) puis on <strong>lisse</strong> avec un filtre (condensateur).</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">À quoi sert le filtre (condensateur) dans une alimentation&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> À lisser les bosses en un continu presque plat</button>
+          <button class="opt"><span class="key">B</span> À augmenter la tension</button>
+          <button class="opt"><span class="key">C</span> À couper le courant</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le filtre <strong>lisse</strong> la tension redressée pour obtenir du continu propre.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">Un microphone dynamique&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Transforme un courant en son</button>
+          <button class="opt"><span class="key">B</span> Produit de la lumière</button>
+          <button class="opt"><span class="key">C</span> Transforme un son (mouvement) en tension</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Entrée = son (mouvement), sortie = tension : c'est l'<strong>induction</strong> (phrase 2).</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">Le micro dynamique est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Un appareil totalement différent du haut-parleur</button>
+          <button class="opt"><span class="key">B</span> Un haut-parleur fonctionnant à l'envers</button>
+          <button class="opt"><span class="key">C</span> Un type de transformateur</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Même objet, sens inversé : la <strong>réversibilité n°2</strong> (haut-parleur ⇄ micro).</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">Pourquoi un micro dynamique n'a-t-il pas besoin de pile&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Il génère lui-même sa tension par induction</button>
+          <button class="opt"><span class="key">B</span> Il consomme très peu</button>
+          <button class="opt"><span class="key">C</span> Il fonctionne à la lumière</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le mouvement de la membrane <strong>produit</strong> le signal : pas besoin d'alimentation.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">L'hystérésis, c'est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Une unité de champ</button>
+          <button class="opt"><span class="key">B</span> Un type de courant</button>
+          <button class="opt"><span class="key">C</span> La « mémoire » d'aimantation d'un matériau (une boucle B-H)</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le matériau garde la trace de son aimantation : la courbe forme une <strong>boucle</strong>.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">L'hystérésis a permis, historiquement&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> D'éclairer les studios</button>
+          <button class="opt"><span class="key">B</span> D'enregistrer le son sur bande magnétique</button>
+          <button class="opt"><span class="key">C</span> De refroidir les caméras</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> La mémoire magnétique = l'enregistrement sur <strong>bande</strong> (et une source de pertes dans les transfos).</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 08 · piège</div>
+        <div class="q__text">Après le redresseur mais <em>sans</em> filtre, la tension est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Parfaitement plate (continu pur)</button>
+          <button class="opt"><span class="key">B</span> Positive mais bosselée (ondulée)</button>
+          <button class="opt"><span class="key">C</span> Encore alternative</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le redresseur rend tout positif ; c'est le <strong>filtre</strong> qui aplatit ensuite.</div>
+      </div>
+      <div class="q q--hard" data-correct="0">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Tu parles fort dans un petit haut-parleur débranché. Peut-il produire un signal électrique&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Oui, il agit comme un micro (réversibilité)</button>
+          <button class="opt"><span class="key">B</span> Non, jamais</button>
+          <button class="opt"><span class="key">C</span> Seulement s'il est alimenté</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> HP ⇄ micro : le mouvement de la membrane <strong>induit une tension</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Pourquoi l'hystérésis fait-elle chauffer un transformateur&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> À cause d'un ventilateur</button>
+          <button class="opt"><span class="key">B</span> Parcourir la boucle B-H à chaque alternance dissipe de l'énergie</button>
+          <button class="opt"><span class="key">C</span> À cause de la lumière ambiante</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Chaque cycle d'aimantation/désaimantation <strong>perd un peu d'énergie</strong> en chaleur.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 10 questions ci-dessus.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 5</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<footer class="footnav">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="cours-6.html">
+      <div class="nextcard__l">
+        <div class="k">Cours 06 · suivant</div>
+        <div class="t">Déphasage, onde, polarisation</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">Lire →</div>
+    </a>
+    <div class="colophon">
+      <span><a href="cours-4.html" style="color:var(--ink-3)">← Cours 04</a></span>
+      <span class="dotsep"></span>
+      <span>Cours 05 / 07</span>
+      <span class="dotsep"></span>
+      <span><a href="index.html" style="color:var(--ink-3)">Sommaire</a></span>
+    </div>
+  </div>
+</footer>
+
+<script id="glossData" type="application/json">
+[
+ ["Redressement","L'étape qui rend une tension alternative toujours positive (elle « retourne » les alternances négatives vers le haut). C'est la première moitié d'une conversion AC→DC.","La tension devient bosselée mais ne descend plus sous zéro."],
+ ["Filtre / lissage","Un condensateur qui aplatit les bosses de la tension redressée pour obtenir un continu presque plat.","Le « tampon » qui remplit les creux entre les bosses."],
+ ["Alimentation (AC→DC)","L'ensemble transformateur + redresseur + filtre qui convertit le secteur alternatif en continu propre, utilisable par un appareil.","Le bloc noir au bout du câble de ta caméra."],
+ ["Microphone dynamique","Une membrane solidaire d'une bobine, dans un aimant : le son la fait bouger, l'induction crée une tension. C'est le haut-parleur à l'envers.","Le micro robuste de la perche, sans pile."],
+ ["Réversibilité n°2","Haut-parleur ⇄ microphone : courant→mouvement (HP) ou mouvement→courant (micro). Le pendant sonore de moteur ⇄ générateur.","Un même principe, deux sens de lecture."],
+ ["Hystérésis","La « mémoire » magnétique d'un matériau : son aimantation retarde sur le champ appliqué, et la courbe B(H) forme une boucle.","Comme un ressort fatigué qui ne revient pas exactement à sa forme."],
+ ["Aimantation (B)","L'état magnétique pris par un matériau soumis à un champ. Dans un ferromagnétique, elle peut subsister même champ coupé (aimant permanent).","Ce que « garde » le fer après être passé près d'un aimant."]
+]
+</script>
+<script>
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-5.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

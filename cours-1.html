@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>01 · Le champ magnétique — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 1 d'électromagnétisme pour l'image : le champ magnétique, expliqué simplement et visuellement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-1">
+
+<div class="progress" id="progress"></div>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 01 / 07</span>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">01</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">01<span class="dot">.</span></div>
+    <h1>Le champ<br>magnétique</h1>
+    <p class="hero__lead"><em class="lead">L'invisible qui fait bouger ton matériel — du moteur d'autofocus au haut-parleur.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot"></span> Niveau <b>socle · lycée</b></span>
+      <span class="chip"><b>~12 min</b> de lecture</span>
+      <span class="chip">4 schémas <b>au doigt</b></span>
+      <span class="chip">mini-quiz <b>3 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POURQUOI ÇA TE CONCERNE ============ -->
+<section class="section" data-screen-label="Pourquoi ça te concerne">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>Tu utilises des aimants toute la journée sans les voir.</h3>
+      <p>Dès qu'un appareil <strong>bouge tout seul</strong> ou <strong>fait du son</strong>, il y a un aimant et une bobine cachés dedans. Comprendre le champ magnétique, c'est comprendre ce qui anime ton matériel.</p>
+      <ul class="applist">
+        <li>Le moteur d'<strong>autofocus</strong> de ton objectif : une bobine pousse une lentille.</li>
+        <li>La <strong>stabilisation</strong> (capteur ou optique) : des aimants recentrent en temps réel.</li>
+        <li>Le <strong>haut-parleur</strong> et l'écouteur du retour son : aimant + bobine = membrane qui vibre.</li>
+        <li>Le <strong>micro dynamique</strong> sur la perche : exactement l'inverse, le son fait bouger la bobine.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §1 — QU'EST-CE QU'UN CHAMP / PÔLES / ATTRACTION ============ -->
+<section class="section" data-screen-label="§1 Le champ et les pôles">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§1.1</span></div>
+      <h2>Qu'est-ce qu'un champ magnétique&nbsp;?</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">C'est une zone d'influence autour d'un aimant.</p>
+      <p>Tu ne le vois pas, mais il est bien réel : c'est lui qui attire un trombone à distance, sans contact. Pour le <strong>dessiner</strong>, on trace des <strong>lignes de champ</strong>.</p>
+      <p>Ces lignes sortent toujours par le pôle <strong>Nord</strong> et reviennent par le pôle <strong>Sud</strong>. Là où elles sont serrées, le champ est fort. Là où elles s'écartent, il faiblit.</p>
+    </div>
+
+    <div class="sec-head" style="margin-top:2.4em">
+      <div class="eyebrow"><span class="num">§1.2</span></div>
+      <h2>Deux pôles : Nord et Sud</h2>
+    </div>
+    <div class="sec-body">
+      <p>Tout aimant a <strong>deux pôles</strong>, jamais un seul. Casse un aimant en deux : tu obtiens deux aimants, chacun avec son Nord et son Sud.</p>
+      <p>La règle tient en une phrase : <strong>les pôles opposés s'attirent, les pôles identiques se repoussent.</strong> N et S se rapprochent ; N et N (ou S et S) se fuient.</p>
+    </div>
+
+    <!-- SCHÉMA A -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">Lignes de champ d'un aimant</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvA"></canvas></div>
+      <div class="controls">
+        <button class="btn btn--accent" id="aToggle">◗ 2 aimants</button>
+        <button class="btn" id="aFlip" style="display:none">Pôles opposés ⇄</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="aHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Pôle Nord</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Pôle Sud</span>
+        <span class="lg"><span class="sw" style="background:rgba(13,13,14,.45)"></span> Lignes &amp; limaille</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ §2 — ENTREFER ============ -->
+<section class="section" data-screen-label="§2 L'entrefer">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§1.3</span></div>
+      <h2>L'entrefer : le champ rangé bien droit</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Plie un aimant en U : l'espace entre les deux branches s'appelle l'entrefer.</p>
+      <p>Dans cet intervalle, les lignes de champ deviennent <strong>parallèles et régulières</strong> : le champ y est <strong>concentré et uniforme</strong>. C'est précisément cette zone soignée qu'on exploite dans les <strong>haut-parleurs</strong> et les <strong>moteurs</strong> — la bobine y baigne dans un champ propre et puissant.</p>
+    </div>
+
+    <!-- SCHÉMA B -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">Champ uniforme dans l'entrefer</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvB"></canvas></div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:rgba(201,255,60,.6)"></span> Zone uniforme (entrefer)</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Branche Nord</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Branche Sud</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ §3 — COURANT CRÉE UN CHAMP ============ -->
+<section class="section" data-screen-label="§3 Le courant crée un champ">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§1.4</span></div>
+      <h2>Un courant crée un champ</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Pas besoin d'aimant : un simple fil parcouru par un courant devient magnétique.</p>
+      <p>Autour du fil, le champ s'enroule en <strong>cercles</strong>. Plus le courant est fort, plus ces anneaux sont intenses. Et leur <strong>sens</strong> dépend du sens du courant.</p>
+      <p>Pour le retrouver sans te tromper : la <strong>règle de la main droite</strong>. Pointe le pouce dans le sens du courant — tes doigts s'enroulent dans le sens du champ.</p>
+      <p class="cut-note">Vue en coupe : on regarde le fil <strong>par le bout</strong>. Le rond central, c'est le fil. <strong>⊙</strong> = le courant vient vers toi ; <strong>⊗</strong> = il s'éloigne.</p>
+    </div>
+
+    <!-- SCHÉMA C -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma C</span>
+        <span class="figure__title">Champ autour d'un fil · vue en coupe</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvC"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Intensité du courant</span><b id="cIval">5 A</b></div>
+          <input type="range" id="cI" min="0.1" max="1" step="0.01" value="0.55">
+        </div>
+        <button class="btn btn--accent" id="cDir" style="flex-basis:100%">Le courant sort de l’écran ⊙</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="cHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Sens du champ</span>
+        <span class="lg">⊙ = courant qui sort de l’écran &nbsp;·&nbsp; ⊗ = qui entre dans l’écran</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ §4 — BOBINE / SOLÉNOÏDE ============ -->
+<section class="section" data-screen-label="§4 La bobine">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§1.5</span></div>
+      <h2>La bobine : fabriquer un aimant</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Enroule le fil en spires : tu obtiens un solénoïde.</p>
+      <p>Chaque tour ajoute son petit champ aux autres. Empilés, ils <strong>s'additionnent</strong> : le champ se concentre à l'intérieur et devient uniforme. Aux deux bouts apparaissent un <strong>Nord</strong> et un <strong>Sud</strong> — exactement comme un barreau aimanté.</p>
+      <p>C'est un <strong>électroaimant</strong> : coupe le courant, le champ disparaît. Pratique — c'est ce qui fait avancer la lentille d'autofocus, pile au bon moment.</p>
+      <p class="cut-note">Vue en coupe : chaque spire traverse le plan <strong>deux fois</strong>, d'où deux points par tour (un en haut ⊗, un en bas ⊙). Les pôles N/S apparaissent dès qu'on empile les spires.</p>
+    </div>
+
+    <!-- SCHÉMA D -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma D</span>
+        <span class="figure__title">Du fil à la bobine</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvD"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Nombre de spires</span><b>↤ glisse ↦</b></div>
+          <input type="range" id="dCoil" min="0" max="1" step="0.01" value="0">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="dHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Pôles N/S de la bobine</span>
+        <span class="lg">⊙ courant vers toi · ⊗ vers le fond (fils en coupe)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ UNITÉ : TESLA ============ -->
+<section class="section" data-screen-label="Unité Tesla">
+  <div class="wrap">
+    <div class="unit">
+      <div class="unit__symbol">T</div>
+      <div class="unit__body">
+        <h3>Le Tesla</h3>
+        <p>L'unité qui mesure l'<strong>intensité</strong> d'un champ magnétique : plus il y a de Tesla, plus le champ est fort.</p>
+        <div class="unit__scale">
+          <span>Terre · <b>≈ 0,00005 T</b> (la boussole)</span>
+          <span>Aimant de frigo · <b>≈ 0,01 T</b></span>
+          <span>IRM d'hôpital · <b>≈ 1,5 à 3 T</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUR UN PLATEAU ============ -->
+<section class="section" data-screen-label="Sur un plateau">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Le même phénomène, partout sur le plateau</h3>
+      <p>Dès qu'un appareil bouge ou produit du son, il y a un aimant et une bobine derrière : moteurs d'objectif, stabilisation, haut-parleurs, casques. C'est aussi la cause de deux classiques que tu connais — un support magnétique sensible à un champ intense, et la <strong>ronflette</strong> qu'un câble symétrique capte en longeant une alimentation. Mettre un nom sur le champ, c'est savoir d'où vient le problème.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MINI-QUIZ ============ -->
+<section class="section" data-screen-label="Mini-quiz">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+
+    <div class="quiz">
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">Par où sortent les lignes de champ d'un aimant&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Par le pôle Sud</button>
+          <button class="opt"><span class="key">B</span> Par le pôle Nord</button>
+          <button class="opt"><span class="key">C</span> Par les deux à la fois</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Convention universelle : les lignes <strong>sortent par le Nord</strong> et reviennent par le Sud.</div>
+      </div>
+
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">Tu rapproches deux pôles Nord. Que se passe-t-il&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Ils s'attirent</button>
+          <button class="opt"><span class="key">B</span> Ils se repoussent</button>
+          <button class="opt"><span class="key">C</span> Rien du tout</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Deux pôles <strong>identiques se repoussent</strong>. Il faut un Nord et un Sud pour qu'ils s'attirent.</div>
+      </div>
+
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">L'entrefer, c'est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Un type de bobine</button>
+          <button class="opt"><span class="key">B</span> L'espace entre deux pôles, où le champ est concentré et uniforme</button>
+          <button class="opt"><span class="key">C</span> Le noyau d'un aimant</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> C'est l'intervalle entre deux pôles ; le champ y est <strong>uniforme</strong>. On l'exploite dans les haut-parleurs et les moteurs.</div>
+      </div>
+
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">Un fil parcouru par un courant&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Ne produit aucun effet magnétique</button>
+          <button class="opt"><span class="key">B</span> Crée un champ magnétique autour de lui</button>
+          <button class="opt"><span class="key">C</span> Devient un aimant permanent</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Tout courant <strong>crée un champ</strong> qui s'enroule autour du fil. Coupe le courant, le champ disparaît.</div>
+      </div>
+
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">Comment fabriquer un aimant qu'on peut éteindre&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Enrouler un fil en bobine et y faire passer un courant</button>
+          <button class="opt"><span class="key">B</span> Le chauffer très fort</button>
+          <button class="opt"><span class="key">C</span> Le frotter contre du tissu</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Une <strong>bobine + un courant = un électroaimant</strong>. On coupe le courant, le champ s'éteint.</div>
+      </div>
+
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">Quelle est l'unité du champ magnétique&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> L'ampère</button>
+          <button class="opt"><span class="key">B</span> Le volt</button>
+          <button class="opt"><span class="key">C</span> Le tesla</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le <strong>tesla (T)</strong>. (L'ampère mesure le courant, le volt la tension.)</div>
+      </div>
+
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">À quoi sert la règle de la main droite&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Trouver le sens du champ autour d'un courant</button>
+          <button class="opt"><span class="key">B</span> Calculer la valeur de la force</button>
+          <button class="opt"><span class="key">C</span> Mesurer une tension</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Pouce dans le sens du courant, les doigts s'enroulent dans le <strong>sens du champ</strong>. C'est une orientation, pas un calcul.</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 08 · piège</div>
+        <div class="q__text">Tu casses un barreau aimanté en deux. Chaque morceau a&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Un seul pôle (N ou S)</button>
+          <button class="opt"><span class="key">B</span> Un Nord ET un Sud</button>
+          <button class="opt"><span class="key">C</span> Plus aucun pôle</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> On ne peut pas isoler un pôle : chaque morceau redevient un <strong>dipôle complet</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Où le champ d'un barreau aimanté est-il le plus intense&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Loin de l'aimant</button>
+          <button class="opt"><span class="key">B</span> Près des pôles, là où les lignes sont serrées</button>
+          <button class="opt"><span class="key">C</span> Au centre du barreau</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Lignes serrées = champ fort, donc <strong>près des pôles</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="0">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Barreau aimanté et électroaimant créent un champ semblable. La vraie différence&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> L'électroaimant s'éteint quand on coupe le courant</button>
+          <button class="opt"><span class="key">B</span> Il n'y a aucune différence</button>
+          <button class="opt"><span class="key">C</span> L'aimant permanent est plus rapide</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> L'électroaimant est <strong>commandable</strong> (on l'allume/éteint) ; l'aimant permanent, non.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 10 questions ci-dessus.</div>
+  </div>
+</section>
+
+<!-- ============ GLOSSAIRE ============ -->
+<section class="section" data-screen-label="Glossaire">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 1</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER / NAV ============ -->
+<footer class="footnav" data-screen-label="Pied de page">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="cours-2.html">
+      <div class="nextcard__l">
+        <div class="k">Cours 02 · suivant</div>
+        <div class="t">Force de Laplace</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">Lire →</div>
+    </a>
+    <div class="colophon">
+      <span>Magnétisme pour l'image</span>
+      <span class="dotsep"></span>
+      <span>Cours 01 / 07</span>
+      <span class="dotsep"></span>
+      <span>IAD · Option Image</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Glossaire : données injectées -->
+<script id="glossData" type="application/json">
+[
+ ["Champ magnétique","La région, autour d'un aimant ou d'un fil parcouru par un courant, où une force magnétique peut s'exercer. On le note B et on le mesure en teslas (T) ; on le représente par des lignes de champ dont la densité indique l'intensité.","Invisible, mais aussi réel que la portée d'un aimant qui attire un trombone à distance."],
+ ["Ligne de champ","Une courbe qui montre, en chaque point, la direction du champ. À l'extérieur d'un aimant, elle va du pôle Nord vers le pôle Sud. Serrées, les lignes signalent un champ fort ; écartées, un champ faible.","Exactement ce que dessine la limaille de fer autour d'un aimant."],
+ ["Pôle Nord / Sud","Les deux extrémités d'un aimant. Par convention, les lignes sortent par le Nord et entrent par le Sud. Un aimant a toujours les deux : un pôle isolé n'existe pas.","Casse un aimant en deux : chaque morceau retrouve un Nord et un Sud."],
+ ["Aimant permanent","Un matériau (souvent à base de fer) qui conserve son champ sans alimentation. Son champ est toujours présent, contrairement à l'électroaimant qu'on peut couper.","L'aimant au dos d'un clap ou d'un micro-cravate."],
+ ["Dipôle","Tout objet magnétique formé d'un Nord et d'un Sud indissociables. C'est la brique de base du magnétisme : il n'existe pas de pôle seul (de monopôle).","Coupé en deux, un dipôle donne deux dipôles, jamais un pôle isolé."],
+ ["Attraction / Répulsion","La règle des pôles : opposés (N-S) ils s'attirent, identiques (N-N ou S-S) ils se repoussent. La force grandit quand on les rapproche.","Le « clac » d'une fixation magnétique de filtre ou de cage."],
+ ["Entrefer","L'espace ménagé entre deux pôles, par exemple entre les branches d'un aimant en U. Le champ y est concentré et quasi uniforme : c'est la zone utile des haut-parleurs et des moteurs.","Le cœur d'un haut-parleur, là où loge la bobine."],
+ ["Courant électrique","Le déplacement ordonné des électrons dans un conducteur ; son intensité, en ampères (A), mesure le débit de charges. Tout courant engendre un champ magnétique autour de lui.","Plus il est intense, plus le champ qu'il crée est fort."],
+ ["Règle de la main droite","Une astuce pour orienter le champ sans se tromper. Pour un fil : le pouce de la main droite suit le courant, les doigts enroulés donnent le sens du champ autour du fil.","Le geste qui dit dans quel sens tournent les anneaux de champ."],
+ ["Spire","Un seul tour de fil conducteur, et la brique élémentaire de la bobine. Chaque spire crée son propre petit champ.","Un anneau de courant."],
+ ["Bobine / Solénoïde","Plusieurs spires enroulées côte à côte. Leurs champs s'additionnent : à l'intérieur, le champ devient fort et uniforme, et l'ensemble se comporte comme un aimant droit, avec un Nord et un Sud.","Le moteur d'autofocus, en réduction."],
+ ["Électroaimant","Une bobine, souvent autour d'un noyau de fer, alimentée par un courant : un aimant qu'on allume et qu'on éteint. Coupe le courant, le champ disparaît.","Ce que pilotent en continu l'autofocus et la stabilisation."],
+ ["Tesla (T)","L'unité d'intensité du champ magnétique. Quelques repères : champ terrestre ≈ 0,00005 T, aimant de frigo ≈ 0,01 T, IRM d'hôpital 1,5 à 3 T.","Plus il y a de teslas, plus le champ est puissant."],
+ ["Limaille de fer","De minuscules grains de fer qui, saupoudrés près d'un aimant, s'alignent sur les lignes de champ et les rendent visibles.","L'expérience classique qui matérialise le champ sur une feuille."]
+]
+</script>
+<script>
+// injecte le glossaire
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-1.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

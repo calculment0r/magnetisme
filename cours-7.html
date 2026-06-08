@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>07 · Câble BNC & impédance — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 7 : la transmission dans un câble, le câble BNC, l'adaptation d'impédance et les réflexions de signal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-7">
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 07 / 07</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">07</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">07<span class="dot">.</span></div>
+    <h1>Câble BNC<br>& impédance</h1>
+    <p class="hero__lead"><em class="lead">Pourquoi un câble vidéo mal terminé renvoie un écho — et pourquoi tout est en 75 Ω.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot lvl-dot--orange"></span> Niveau <b>post-bac</b></span>
+      <span class="chip"><b>~9 min</b> de lecture</span>
+      <span class="chip">2 schémas <b>au doigt</b></span>
+      <span class="chip">QCM <b>7 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>Tes câbles vidéo, le SDI, les 75 Ω.</h3>
+      <p>La vidéo sur un plateau passe par des <strong>câbles coaxiaux à connecteur BNC</strong> (SDI). Tout y est calibré en <strong>75 Ω</strong> pour une raison précise : éviter que le signal ne « rebondisse » dans le câble et n'abîme l'image.</p>
+      <ul class="applist">
+        <li>Câbles SDI, prises BNC, terminaisons 75 Ω.</li>
+        <li>Le signal met un temps à parcourir le câble.</li>
+        <li>Une mauvaise adaptation = écho, image fantôme.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §7.1 VITESSE -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§7.1</span></div>
+      <h2>Le signal voyage à vitesse finie</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Dans un câble, le signal ne va pas instantanément d'un bout à l'autre.</p>
+      <p>Il se propage très vite, mais à une vitesse <strong>inférieure à celle de la lumière</strong> : l'isolant (le diélectrique) qui entoure l'âme du câble le ralentit. Sur de grandes longueurs, ce petit retard finit par compter.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">Une impulsion qui parcourt le câble</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvSpeed"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Vitesse dans le câble</span><b id="spVval">—</b></div>
+          <input type="range" id="spV" min="0" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="spHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:rgba(13,13,14,.5)"></span> Lumière (référence c)</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Signal dans le câble (plus lent)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- §7.2 REFLEXION / ADAPTATION -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§7.2</span></div>
+      <h2>Réflexion et adaptation d'impédance</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Si le bout du câble n'est pas « bien fermé », le signal rebondit et revient.</p>
+      <p>Pour qu'il n'y ait pas d'écho, il faut <strong>adapter l'impédance</strong> : la source, le câble et la terminaison doivent avoir la même valeur. En vidéo, c'est <strong>75 Ω</strong> partout ; on ferme la ligne par une résistance de 75 Ω qui <strong>absorbe</strong> le signal. Mal adapté (bout ouvert), le signal se réfléchit et parasite l'image.</p>
+      <p>(En radio/RF, la valeur de référence est 50 Ω. Le principe est le même.)</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">Absorbé… ou réfléchi</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvCable"></canvas></div>
+      <div class="controls">
+        <span class="slider__top" style="flex-basis:100%;text-transform:none;letter-spacing:0;font-size:11.5px">Choisis la terminaison du câble (le câble, lui, est à 75 Ω) :</span>
+        <button class="btn btn--accent" id="cabT75">75 Ω · adaptée</button>
+        <button class="btn" id="cabT50">50 Ω</button>
+        <button class="btn" id="cabTopen">ouvert ∞</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="cabHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Signal aller</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Signal réfléchi (l'écho)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Où ça travaille</h3>
+      <p>Le <strong>SDI</strong> (la vidéo numérique) circule sur du coaxial <strong>75 Ω</strong> à connecteur BNC. Respecter le 75 Ω de bout en bout évite réflexions et images fantômes. Et si une liaison est longue, garde en tête ce petit <strong>retard</strong> de propagation — il peut désynchroniser des signaux.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+    <div class="quiz">
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">Dans un câble, le signal se propage&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Instantanément</button>
+          <button class="opt"><span class="key">B</span> À vitesse finie, un peu moins vite que la lumière</button>
+          <button class="opt"><span class="key">C</span> Plus vite que la lumière</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Vitesse <strong>finie</strong> et <strong>inférieure à c</strong> (le diélectrique ralentit).</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">Un câble mal terminé (non adapté)&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Renvoie une partie du signal (réflexion)</button>
+          <button class="opt"><span class="key">B</span> Chauffe et fond</button>
+          <button class="opt"><span class="key">C</span> Change la couleur du signal</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le signal <strong>se réfléchit</strong> au bout et revient parasiter la ligne.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">Pour éviter les réflexions en vidéo, on ferme la ligne par&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Un aimant</button>
+          <button class="opt"><span class="key">B</span> Un condensateur</button>
+          <button class="opt"><span class="key">C</span> Une résistance de 75 Ω (terminaison adaptée)</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Une terminaison <strong>75 Ω</strong> absorbe le signal au lieu de le renvoyer.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">L'impédance d'un câble coaxial vidéo (BNC) est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> 8 Ω</button>
+          <button class="opt"><span class="key">B</span> 75 Ω</button>
+          <button class="opt"><span class="key">C</span> 1000 Ω</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> <strong>75 Ω</strong> en vidéo (50 Ω en RF/radio).</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">« Adapter l'impédance », ça veut dire&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Mettre la même valeur (75 Ω) partout : source, câble, terminaison</button>
+          <button class="opt"><span class="key">B</span> Couper le câble plus court</button>
+          <button class="opt"><span class="key">C</span> Augmenter la tension</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Même impédance de bout en bout → pas de réflexion.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">Une réflexion mal absorbée donne à l'image&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Plus de netteté</button>
+          <button class="opt"><span class="key">B</span> De la couleur</button>
+          <button class="opt"><span class="key">C</span> Un écho / une image fantôme</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> L'écho du signal se superpose → <strong>image fantôme</strong>.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">Le connecteur standard de la vidéo coaxiale s'appelle&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Le XLR</button>
+          <button class="opt"><span class="key">B</span> Le BNC</button>
+          <button class="opt"><span class="key">C</span> Le jack</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le <strong>BNC</strong> (le XLR, lui, c'est l'audio symétrique).</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 08 · piège</div>
+        <div class="q__text">Tu oublies la terminaison 75 Ω au bout d'une liaison SDI. Le plus probable&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Rien du tout</button>
+          <button class="opt"><span class="key">B</span> Des réflexions → image dégradée ou fantôme</button>
+          <button class="opt"><span class="key">C</span> Le câble fond</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Bout non adapté → le signal <strong>se réfléchit</strong> et parasite l'image.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Tu utilises un câble 50 Ω (RF) pour de la vidéo 75 Ω&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Aucune différence</button>
+          <button class="opt"><span class="key">B</span> Désadaptation → réflexions possibles</button>
+          <button class="opt"><span class="key">C</span> Une meilleure image</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Les impédances doivent correspondre : <strong>75 Ω</strong> de bout en bout pour la vidéo.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Sur une très longue liaison, le petit retard de propagation peut&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Ne jamais gêner</button>
+          <button class="opt"><span class="key">B</span> Désynchroniser des signaux entre eux</button>
+          <button class="opt"><span class="key">C</span> Changer la couleur de l'image</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le signal arrive avec un délai ; sur de grandes longueurs ça peut <strong>désynchroniser</strong>.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 10 questions ci-dessus.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 7</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<footer class="footnav">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="index.html">
+      <div class="nextcard__l">
+        <div class="k">Bravo — dernier cours</div>
+        <div class="t">Retour au sommaire</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">↩</div>
+    </a>
+    <div class="colophon">
+      <span><a href="cours-6.html" style="color:var(--ink-3)">← Cours 06</a></span>
+      <span class="dotsep"></span>
+      <span>Cours 07 / 07</span>
+      <span class="dotsep"></span>
+      <span>Pour Eve</span>
+    </div>
+  </div>
+</footer>
+
+<script id="glossData" type="application/json">
+[
+ ["Câble coaxial","Un câble où une âme centrale est entourée d'un isolant puis d'un blindage cylindrique. Idéal pour transporter un signal haute fréquence (vidéo) sans parasites.","Le câble vidéo rond à embout métallique."],
+ ["Connecteur BNC","Le connecteur à baïonnette standard des câbles coaxiaux vidéo (SDI). Se verrouille d'un quart de tour.","La prise ronde qu'on clipse sur une caméra ou une régie."],
+ ["Impédance caractéristique","La valeur d'impédance « propre » d'un câble : 75 Ω en vidéo, 50 Ω en RF. Pour bien transmettre, tout doit être à cette valeur.","La « taille » électrique du câble, à respecter partout."],
+ ["Adaptation d'impédance","Mettre la même impédance à la source, dans le câble et à la terminaison, pour qu'aucun signal ne se réfléchisse.","Tout en 75 Ω : la source « voit » toujours 75 Ω."],
+ ["Réflexion","Le rebond d'une partie du signal quand il atteint un bout mal adapté. Il revient en arrière et parasite la ligne.","Comme une vague qui revient si le canal n'est pas absorbé au bout."],
+ ["Terminaison (75 Ω)","La résistance placée au bout de la ligne qui absorbe le signal au lieu de le renvoyer. C'est elle qui « ferme » proprement le câble.","Le bouchon qui empêche l'écho."],
+ ["Vitesse de propagation","La vitesse à laquelle le signal avance dans le câble. Toujours inférieure à c, réduite par l'isolant (le diélectrique).","Très rapide, mais pas instantané."]
+]
+</script>
+<script>
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-7.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

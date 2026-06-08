@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>04 · Transformateur & induction — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 4 : le transformateur (rapport de spires) et les forces nées de l'induction — buzz, frein magnétique, anneau sauteur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-4">
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 04 / 07</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">04</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">04<span class="dot">.</span></div>
+    <h1>Transformateur<br>& induction</h1>
+    <p class="hero__lead"><em class="lead">Changer la tension sans pièce mobile — et toutes ces forces invisibles qui naissent d'un courant induit.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot lvl-dot--orange"></span> Niveau <b>post-bac</b></span>
+      <span class="chip"><b>~10 min</b> de lecture</span>
+      <span class="chip">2 schémas <b>au doigt</b></span>
+      <span class="chip">QCM <b>7 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>Tes alimentations et le « bzzz » dans le son.</h3>
+      <p>Chaque <strong>bloc d'alimentation</strong> (caméra, projecteur, chargeur) contient un transformateur qui adapte la tension. Et ce <strong>ronronnement à 50 Hz</strong> qu'on entend près d'un gros transfo, ou capté dans une prise son mal placée, vient directement de ce cours.</p>
+      <ul class="applist">
+        <li>Alimentations et chargeurs de matériel.</li>
+        <li>Le buzz 50 Hz des transfos, à éviter près des micros.</li>
+        <li>Les freins magnétiques (sans contact, sans usure).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §4.1 TRANSFORMATEUR -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§4.1</span></div>
+      <h2>Le transformateur : changer la tension</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Deux bobines sur un même noyau de fer : la première crée un flux variable, la seconde le récupère.</p>
+      <p>La tension du primaire crée dans le noyau un flux qui varie ; ce flux variable induit une tension dans le secondaire (c'est l'induction du cours 3). Le rapport est fixé par le <strong>nombre de spires</strong> : plus de spires au secondaire = tension plus haute (élévateur), moins de spires = tension plus basse (abaisseur).</p>
+      <p>Point clé d'examen : un transformateur ne marche qu'en <strong>alternatif</strong>. En continu, le flux ne varie pas, donc rien n'est induit.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">Rapport de spires → rapport de tensions</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvTr"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Spires au secondaire</span><b id="trNval">4</b></div>
+          <input type="range" id="trN" min="0" max="1" step="0.001" value="0.43">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="trHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Primaire (entrée U₁)</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Secondaire (sortie U₂)</span>
+        <span class="lg"><span class="sw" style="background:rgba(13,13,14,.45)"></span> Flux Φ (pointillés, dans le noyau)</span>
+      </div>
+    </figure>
+    <div class="unit" style="margin-top:clamp(22px,5vw,32px)">
+      <div class="unit__symbol" style="font-size:clamp(26px,8vw,40px)">U₂/U₁ = N₂/N₁</div>
+      <div class="unit__body">
+        <h3>La formule, en mots</h3>
+        <p>Le rapport des tensions = le rapport du nombre de spires. Et la puissance se conserve (transfo idéal) : si la tension monte, le <strong>courant baisse</strong> d'autant (U₁·I₁ = U₂·I₂).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4.2 FORCES D'INDUCTION -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§4.2</span></div>
+      <h2>Quand le courant induit subit lui-même une force</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">L'induction crée un courant ; ce courant, plongé dans un champ, subit une force de Laplace. La boucle se referme.</p>
+      <p>L'<strong>anneau sauteur</strong> en est l'exemple spectaculaire : sur une bobine alimentée en alternatif, un anneau métallique voit naître en lui un courant induit, qui est aussitôt <strong>repoussé</strong> — l'anneau saute. C'est la « catapulte magnétique ».</p>
+      <p>Deux cousins du même phénomène : le <strong>buzz 50 Hz</strong> d'un transfo (le noyau vibre au rythme du secteur), et le <strong>frein magnétique</strong> (les courants de Foucault induits dans une pièce qui bouge s'opposent au mouvement, par la loi de Lenz — un freinage sans contact).</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">L'anneau sauteur</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvRing"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Courant dans la bobine</span><b id="ringIval">moyen</b></div>
+          <input type="range" id="ringI" min="0.1" max="1" step="0.01" value="0.6">
+        </div>
+        <button class="btn btn--accent" id="ringOn" style="flex-basis:100%">Couper le courant</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="ringHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Répulsion (force sur l'anneau)</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Bobine alimentée</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Où ça travaille (et où ça gêne)</h3>
+      <p>Les <strong>alimentations</strong> de ton matériel transforment le secteur. Méfie-toi du <strong>buzz 50 Hz</strong> : un transfo ou un bloc d'alim trop près d'un micro ou d'un câble audio injecte un ronflement. Quant au <strong>frein magnétique</strong>, on le retrouve sur certaines têtes, montagnes russes et trains — un freinage progressif, sans pièce qui s'use.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+    <div class="quiz">
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">À quoi sert un transformateur&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> À stocker de l'électricité</button>
+          <button class="opt"><span class="key">B</span> À changer la valeur d'une tension alternative</button>
+          <button class="opt"><span class="key">C</span> À transformer le courant en lumière</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Il <strong>modifie la tension</strong> (et le courant en sens inverse), via le rapport de spires.</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">Le secondaire a deux fois plus de spires que le primaire. La tension de sortie&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Est deux fois plus grande (élévateur)</button>
+          <button class="opt"><span class="key">B</span> Est deux fois plus petite</button>
+          <button class="opt"><span class="key">C</span> Ne change pas</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> U₂/U₁ = N₂/N₁ : deux fois plus de spires → tension <strong>doublée</strong>.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">Un transformateur fonctionne&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> En courant continu seulement</button>
+          <button class="opt"><span class="key">B</span> Avec n'importe quoi</button>
+          <button class="opt"><span class="key">C</span> En courant alternatif (il faut un flux qui varie)</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Sans variation de flux, pas d'induction : il faut de l'<strong>alternatif</strong>.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">Dans un transfo idéal, si la tension monte, le courant&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Monte aussi</button>
+          <button class="opt"><span class="key">B</span> Baisse (la puissance se conserve)</button>
+          <button class="opt"><span class="key">C</span> Reste identique</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> U₁·I₁ = U₂·I₂ : tension ×2 → courant ÷2.</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">L'anneau sauteur saute parce que&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Le courant induit en lui est repoussé par la bobine</button>
+          <button class="opt"><span class="key">B</span> Il est chauffé et se dilate</button>
+          <button class="opt"><span class="key">C</span> Il devient un aimant permanent</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Un courant est induit dans l'anneau ; placé dans le champ, il subit une force de répulsion (Laplace + Lenz).</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">Le frein magnétique (courants de Foucault) ralentit un objet&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Par frottement mécanique</button>
+          <button class="opt"><span class="key">B</span> En le chauffant volontairement</button>
+          <button class="opt"><span class="key">C</span> Sans contact : le courant induit s'oppose au mouvement</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Loi de Lenz : les courants induits freinent le mouvement, <strong>sans contact</strong>.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">Le « buzz » à 50 Hz d'un transfo vient&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Du ventilateur interne</button>
+          <button class="opt"><span class="key">B</span> Des forces qui font vibrer le noyau au rythme du secteur</button>
+          <button class="opt"><span class="key">C</span> D'un haut-parleur caché</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le noyau vibre au rythme du courant alternatif (50 Hz) → ronflement audible.</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 08 · piège</div>
+        <div class="q__text">Tu branches un transformateur sur une pile (courant continu). En sortie&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Une tension continue plus haute</button>
+          <button class="opt"><span class="key">B</span> Presque rien (pas de flux variable)</button>
+          <button class="opt"><span class="key">C</span> Du courant alternatif</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Sans variation de flux, rien n'est induit : le transfo a besoin d'<strong>alternatif</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Un transfo abaisse la tension par 3. Le courant disponible au secondaire (idéal) est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Divisé par 3</button>
+          <button class="opt"><span class="key">B</span> Multiplié par 3</button>
+          <button class="opt"><span class="key">C</span> Inchangé</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> La puissance se conserve : tension ÷3 → courant <strong>×3</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Pourquoi transporte-t-on l'électricité en très haute tension sur de longues distances&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Pour que le courant aille plus vite</button>
+          <button class="opt"><span class="key">B</span> Pour baisser le courant et réduire les pertes</button>
+          <button class="opt"><span class="key">C</span> Pour économiser du câble</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Tension haute → courant faible → <strong>moins de pertes</strong> par échauffement dans les lignes.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 10 questions ci-dessus.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 4</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<footer class="footnav">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="cours-5.html">
+      <div class="nextcard__l">
+        <div class="k">Cours 05 · suivant</div>
+        <div class="t">AC-DC, micro, hystérésis</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">Lire →</div>
+    </a>
+    <div class="colophon">
+      <span><a href="cours-3.html" style="color:var(--ink-3)">← Cours 03</a></span>
+      <span class="dotsep"></span>
+      <span>Cours 04 / 07</span>
+      <span class="dotsep"></span>
+      <span><a href="index.html" style="color:var(--ink-3)">Sommaire</a></span>
+    </div>
+  </div>
+</footer>
+
+<script id="glossData" type="application/json">
+[
+ ["Transformateur","Deux bobines couplées par un noyau de fer : le primaire (alternatif) crée un flux variable, le secondaire le convertit en tension. Sert à élever ou abaisser une tension sans pièce mobile.","Le cœur d'un bloc d'alimentation."],
+ ["Rapport de transformation","Le lien entre tensions et spires : U₂/U₁ = N₂/N₁. Plus de spires au secondaire = tension plus haute.","Comme un engrenage : on échange tension contre courant."],
+ ["Primaire / Secondaire","Le primaire est la bobine d'entrée (branchée sur la source) ; le secondaire, la bobine de sortie. Elles ne sont reliées que par le flux magnétique, pas par un fil.","Entrée et sortie d'un même transfo."],
+ ["Noyau (circuit magnétique)","La pièce de fer qui canalise le flux d'une bobine à l'autre, pour que presque tout le champ du primaire traverse le secondaire.","Le « tuyau » qui guide le champ entre les deux bobines."],
+ ["Courants de Foucault","Des courants induits qui tourbillonnent dans une masse métallique soumise à un champ variable. Ils chauffent et, surtout, freinent.","Ce qui ralentit une plaque qui bouge près d'un aimant."],
+ ["Frein magnétique","Un freinage sans contact : les courants de Foucault induits dans une pièce en mouvement s'opposent (par Lenz) à ce mouvement.","Le freinage doux et sans usure de certaines têtes ou trains."],
+ ["Anneau sauteur","Un anneau conducteur sur une bobine alternative : le courant induit en lui est repoussé, l'anneau bondit. La « catapulte magnétique ».","La démo qui fait sauter un anneau d'aluminium."]
+]
+</script>
+<script>
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-4.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

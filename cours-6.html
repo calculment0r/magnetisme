@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>06 · Déphasage, onde, polarisation — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 6 : le déphasage et la puissance (cos φ), l'onde électromagnétique et la polarisation (le filtre polarisant).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-6">
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 06 / 07</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">06</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">06<span class="dot">.</span></div>
+    <h1>Déphasage,<br>onde,<br>polarisation</h1>
+    <p class="hero__lead"><em class="lead">Pourquoi une partie de la puissance « tourne dans le vide » — et pourquoi ton filtre polarisant tue les reflets.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot lvl-dot--orange"></span> Niveau <b>post-bac</b></span>
+      <span class="chip"><b>~12 min</b> de lecture</span>
+      <span class="chip">3 schémas <b>au doigt</b></span>
+      <span class="chip">QCM <b>7 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>La lumière est une onde — et tu la filtres déjà.</h3>
+      <p>Le <strong>filtre polarisant</strong> que tu visses sur l'objectif pour saturer un ciel ou enlever un reflet, c'est exactement le sujet de ce cours. Et le <strong>déphasage</strong> explique pourquoi, en alternatif, la puissance affichée n'est pas toujours la puissance utile.</p>
+      <ul class="applist">
+        <li>Le filtre polarisant : reflets sur l'eau, vitres, ciel.</li>
+        <li>Le cos φ : la part de puissance réellement utile.</li>
+        <li>Les parasites captés par les câbles (et pourquoi on blinde).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §6.1 DEPHASAGE -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§6.1</span></div>
+      <h2>Le déphasage et la puissance utile</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Avec une bobine ou un condensateur, tension et courant ne montent plus en même temps.</p>
+      <p>Ce décalage, c'est le <strong>déphasage φ</strong>. Conséquence : une partie de la puissance fait des allers-retours sans rien produire d'utile. La puissance vraiment consommée vaut <strong>P = U·I·cos φ</strong>. Quand φ = 0 (en phase), tout est utile (cos φ = 1) ; quand φ approche 90°, presque rien ne l'est.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">Tension, courant, et cos φ</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvPhase"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Déphasage φ</span><b id="phVal">0°</b></div>
+          <input type="range" id="phPhi" min="0" max="1" step="0.001" value="0">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="phHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Tension U</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Courant I</span>
+      </div>
+    </figure>
+    <div class="unit" style="margin-top:clamp(22px,5vw,32px)">
+      <div class="unit__symbol" style="font-size:clamp(24px,7vw,38px)">P = U·I·cos φ</div>
+      <div class="unit__body">
+        <h3>La formule, en mots</h3>
+        <p><strong>U·I</strong> est la puissance « apparente » (ce qui circule). En la multipliant par <strong>cos φ</strong> (le facteur de puissance), on obtient la puissance <strong>active</strong> : celle réellement utile. Plus le déphasage est grand, plus on gaspille.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §6.2 ONDE EM -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§6.2</span></div>
+      <h2>L'onde électromagnétique</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Un champ électrique et un champ magnétique, perpendiculaires, qui se propagent ensemble.</p>
+      <p>La lumière, les ondes radio, le Wi-Fi : ce sont des ondes électromagnétiques. Le champ électrique <strong>E</strong> et le champ magnétique <strong>B</strong> oscillent à 90° l'un de l'autre, et l'onde avance à la vitesse de la lumière <strong>c</strong>.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">E et B, perpendiculaires</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvWave"></canvas></div>
+      <div class="controls">
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="waveHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Champ électrique E</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Champ magnétique B</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- §6.3 POLARISATION -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§6.3</span></div>
+      <h2>La polarisation : ton filtre polarisant</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">La polarisation, c'est la direction dans laquelle « vibre » le champ électrique.</p>
+      <p>Un <strong>filtre polarisant</strong> ne laisse passer que la lumière qui vibre dans sa direction. Tourne-le : tu coupes plus ou moins la lumière, et surtout les <strong>reflets</strong> (qui sont fortement polarisés). C'est pour ça qu'il assombrit un ciel ou supprime le reflet d'une vitre.</p>
+    </div>
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma C</span>
+        <span class="figure__title">Tourne le filtre polarisant</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvPol"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Angle du filtre</span><b id="polVal">0°</b></div>
+          <input type="range" id="polA" min="0" max="1" step="0.001" value="0">
+        </div>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="polHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Lumière qui passe</span>
+        <span class="lg">Filtre aligné = tout passe · croisé = tout coupé</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Où ça travaille</h3>
+      <p>Le <strong>filtre polarisant</strong> est ton outil quotidien : ciel plus dense, reflets matés sur l'eau et les vitres. Le <strong>cos φ</strong> revient dès qu'on dimensionne une installation électrique. Et les <strong>parasites</strong> — un champ extérieur variable qui induit des tensions dans un câble — expliquent le blindage et les paires torsadées de tes liaisons audio et vidéo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+    <div class="quiz">
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">Le déphasage φ apparaît à cause&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> D'une simple résistance</button>
+          <button class="opt"><span class="key">B</span> D'une bobine ou d'un condensateur</button>
+          <button class="opt"><span class="key">C</span> De la lumière</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Bobines (self) et condensateurs décalent le courant par rapport à la tension : c'est le <strong>déphasage</strong>.</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">La puissance réellement utile vaut&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> P = U·I·cos φ</button>
+          <button class="opt"><span class="key">B</span> P = U·I</button>
+          <button class="opt"><span class="key">C</span> P = U + I</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> La puissance <strong>active</strong> = apparente (U·I) × <strong>cos φ</strong>.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">Si φ = 0 (tension et courant en phase)&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Rien n'est utile</button>
+          <button class="opt"><span class="key">B</span> La moitié est utile</button>
+          <button class="opt"><span class="key">C</span> Toute la puissance est utile (cos 0 = 1)</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> cos 0 = 1 : aucune perte due au déphasage.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">Dans une onde électromagnétique, E et B sont&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Parallèles</button>
+          <button class="opt"><span class="key">B</span> Perpendiculaires l'un à l'autre</button>
+          <button class="opt"><span class="key">C</span> De même nature</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Le champ électrique E et le champ magnétique B oscillent à <strong>90°</strong>, et l'onde avance à la vitesse c.</div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">La polarisation décrit&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> La direction de vibration du champ électrique</button>
+          <button class="opt"><span class="key">B</span> La couleur de la lumière</button>
+          <button class="opt"><span class="key">C</span> La vitesse de l'onde</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> C'est la <strong>direction</strong> dans laquelle vibre E.</div>
+      </div>
+      <div class="q" data-correct="2">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">Un filtre polarisant croisé (à 90° de la lumière)&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Laisse tout passer</button>
+          <button class="opt"><span class="key">B</span> Change la couleur</button>
+          <button class="opt"><span class="key">C</span> Coupe (presque) toute la lumière</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Aligné = tout passe ; croisé = tout coupé. C'est ce qui mate les reflets.</div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">Un parasite capté par un câble vient&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> De la gravité</button>
+          <button class="opt"><span class="key">B</span> D'un champ extérieur variable qui induit une tension</button>
+          <button class="opt"><span class="key">C</span> De la couleur du câble</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Un champ variable induit des tensions parasites : d'où le <strong>blindage</strong> et les paires torsadées.</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 08 · piège</div>
+        <div class="q__text">Deux polarisants croisés (90°) ne laissent rien passer. Tu glisses un 3ᵉ filtre à 45° <em>entre</em> les deux&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Toujours rien ne passe</button>
+          <button class="opt"><span class="key">B</span> Un peu de lumière repasse</button>
+          <button class="opt"><span class="key">C</span> Toute la lumière passe</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Surprenant mais réel : le filtre à 45° <strong>réoriente</strong> une partie de la lumière, qui franchit alors le dernier.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Un appareil a un cos φ faible (0,5). Pour la même puissance utile, le courant nécessaire est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Plus faible</button>
+          <button class="opt"><span class="key">B</span> Plus élevé (on transporte du courant « inutile »)</button>
+          <button class="opt"><span class="key">C</span> Identique</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Mauvais cos φ → il faut faire circuler <strong>plus de courant</strong> pour la même puissance active.</div>
+      </div>
+      <div class="q q--hard" data-correct="0">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Le filtre polarisant assombrit surtout un ciel bleu à 90° du soleil parce que&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Cette lumière diffusée est fortement polarisée</button>
+          <button class="opt"><span class="key">B</span> Il y a plus de nuages à cet endroit</button>
+          <button class="opt"><span class="key">C</span> C'est un pur hasard</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> La lumière du ciel à 90° du soleil est <strong>très polarisée</strong> : le filtre la coupe efficacement.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 10 questions ci-dessus.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 6</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<footer class="footnav">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="cours-7.html">
+      <div class="nextcard__l">
+        <div class="k">Cours 07 · suivant</div>
+        <div class="t">Câble BNC, impédance</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">Lire →</div>
+    </a>
+    <div class="colophon">
+      <span><a href="cours-5.html" style="color:var(--ink-3)">← Cours 05</a></span>
+      <span class="dotsep"></span>
+      <span>Cours 06 / 07</span>
+      <span class="dotsep"></span>
+      <span><a href="index.html" style="color:var(--ink-3)">Sommaire</a></span>
+    </div>
+  </div>
+</footer>
+
+<script id="glossData" type="application/json">
+[
+ ["Déphasage (φ)","Le décalage temporel entre la tension et le courant, introduit par une bobine ou un condensateur. Quand il est nul, U et I montent ensemble.","Comme deux nageurs qui ne sont plus synchrones."],
+ ["Facteur de puissance (cos φ)","Le nombre, entre 0 et 1, qui dit quelle part de la puissance apparente est réellement utile. cos φ = 1 : tout est utile ; proche de 0 : presque rien.","La proportion d'effort qui sert vraiment."],
+ ["Puissance active / apparente","Apparente = U·I (ce qui circule, en VA). Active = U·I·cos φ (ce qui est réellement consommé, en watts).","La mousse sur une bière : du volume apparent, peu de liquide utile."],
+ ["Onde électromagnétique","Un champ électrique E et un champ magnétique B perpendiculaires qui se propagent ensemble à la vitesse de la lumière c.","La lumière, la radio, le Wi-Fi : tous des ondes EM."],
+ ["Polarisation","La direction dans laquelle vibre le champ électrique d'une onde. La lumière des reflets est fortement polarisée.","L'orientation des « vagues » de lumière."],
+ ["Filtre polarisant","Un filtre qui ne laisse passer que la lumière vibrant dans sa direction. En le tournant, on coupe les reflets et on densifie le ciel.","Le filtre que tu visses sur l'objectif."],
+ ["Parasite (induction)","Une tension indésirable créée dans un câble par un champ extérieur variable. On la combat par le blindage et les paires torsadées.","Le ronflement ou la perturbation captés par une liaison mal protégée."]
+]
+</script>
+<script>
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-6.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

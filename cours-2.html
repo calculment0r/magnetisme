@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>02 · Force de Laplace — Magnétisme pour l'image</title>
+<meta name="description" content="Cours 2 d'électromagnétisme pour l'image : la force de Laplace, le haut-parleur, le vu-mètre, la loi d'Ampère.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cours-2">
+
+<div class="progress" id="progress"></div>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="topbar__brand" href="index.html"><span class="ring-mark"></span> Magnétisme <b>pour l'image</b></a>
+    <span class="topbar__cours">Cours 02 / 07</span>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__rings" id="heroRings"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">02</span> · Électromagnétisme pour l'image</div>
+    <div class="hero__num">02<span class="dot">.</span></div>
+    <h1>La force<br>de Laplace</h1>
+    <p class="hero__lead"><em class="lead">Mets du courant dans un aimant : ça pousse. C'est ce qui fait vibrer chaque haut-parleur.</em></p>
+    <div class="hero__meta">
+      <span class="chip chip--level"><span class="lvl-dot"></span> Niveau <b>socle · lycée</b></span>
+      <span class="chip"><b>~10 min</b> de lecture</span>
+      <span class="chip">3 schémas <b>au doigt</b></span>
+      <span class="chip">mini-quiz <b>3 questions</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POURQUOI ÇA TE CONCERNE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="callout callout--dark">
+      <span class="callout__label">Pourquoi ça te concerne</span>
+      <h3>Le haut-parleur, c'est exactement ça.</h3>
+      <p>Une bobine baigne dans l'aimant d'un haut-parleur. Tu y envoies le <strong>courant du son</strong> : il subit une force et fait <strong>bouger la membrane</strong>, qui pousse l'air — tu entends. Tout ce cours décrit ce phénomène et ses cousins.</p>
+      <ul class="applist">
+        <li>Le <strong>haut-parleur</strong> et l'oreillette de ton retour son.</li>
+        <li>Le <strong>vu-mètre</strong> à aiguille d'une console ou d'un ampli.</li>
+        <li>Le <strong>moteur</strong> qui fera tourner la caméra (cours 3, même principe).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLONNE VERTÉBRALE — PHRASE 1 ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§2.1</span></div>
+      <h2>La première des deux phrases</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Un courant + un aimant → une force.</p>
+      <p>C'est la <strong>force de Laplace</strong>. Dès qu'un fil traversé par un courant se trouve dans un champ magnétique, il est <strong>poussé</strong>. Pour chaque appareil, pose-toi la question : <strong>qu'est-ce qui entre, qu'est-ce qui sort ?</strong></p>
+      <p>Ici l'entrée, c'est du <strong>courant</strong> ; la sortie, c'est du <strong>mouvement</strong>. Garde ce réflexe : la moitié du programme s'éclaire avec.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §2.2 — LA FORCE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§2.2</span></div>
+      <h2>Une force perpendiculaire</h2>
+    </div>
+    <div class="sec-body">
+      <p>La force ne pousse ni dans le sens du courant, ni dans celui du champ : elle est <strong>perpendiculaire aux deux</strong>. Change le sens du courant <em>ou</em> celui de l'aimant, et la force s'inverse.</p>
+      <p>Trois choses la rendent plus forte : un <strong>champ</strong> plus intense, un <strong>courant</strong> plus fort, un <strong>fil</strong> plus long dans le champ.</p>
+      <p class="cut-note">Sur le schéma, le fil est vu <strong>de côté</strong> ; le champ <strong>B</strong> est perpendiculaire à l'écran (<strong>⊗</strong> vers le fond). Bouge les trois curseurs : la force <strong>F = B·I·L</strong> grandit avec chacun. Le <strong>diamètre</strong> du fil, lui, ne change rien.</p>
+    </div>
+
+    <!-- SCHÉMA L -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma A</span>
+        <span class="figure__title">La force sur un fil</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvL"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Champ B</span><b id="lBval">moyen</b></div>
+          <input type="range" id="lB" min="0.15" max="1" step="0.01" value="0.6">
+        </div>
+        <div class="slider">
+          <div class="slider__top"><span>Courant I</span><b id="lIval">5 A</b></div>
+          <input type="range" id="lI" min="0.12" max="1" step="0.01" value="0.55">
+        </div>
+        <div class="slider">
+          <div class="slider__top"><span>Longueur de fil L</span><b id="lLval">moyen</b></div>
+          <input type="range" id="lL" min="0.25" max="1" step="0.01" value="0.6">
+        </div>
+        <button class="btn btn--accent" id="lCur">Sens du courant ⇄</button>
+        <button class="btn" id="lField">Sens du champ ⇄</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="lHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Force F = B·I·L</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Fil + courant I</span>
+        <span class="lg">⊗ = champ B (vers le fond)</span>
+      </div>
+    </figure>
+
+    <!-- FORMULE -->
+    <div class="unit" style="margin-top:clamp(22px,5vw,32px)">
+      <div class="unit__symbol" style="font-size:clamp(30px,9vw,46px)">F=B·I·L</div>
+      <div class="unit__body">
+        <h3>La formule, en mots</h3>
+        <p><strong>F</strong> la force (en newtons) = <strong>B</strong> l'intensité du champ (en tesla) × <strong>I</strong> le courant (en ampères) × <strong>L</strong> la longueur de fil dans le champ (en mètres). Plus l'un des trois monte, plus ça pousse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §2.3 — D'OÙ ÇA VIENT ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§2.3</span></div>
+      <h2>D'où vient cette force ?</h2>
+    </div>
+    <div class="sec-body">
+      <p>Un courant, c'est des <strong>électrons</strong> qui défilent. Chaque électron en mouvement dans un champ est dévié : c'est la <strong>force de Lorentz</strong>. Mises bout à bout, toutes ces petites déviations poussent le fil entier — voilà la force de Laplace.</p>
+      <p>Le <strong>canon à électrons</strong> d'un vieux téléviseur à tube le montrait en grand : un champ déviait le faisceau d'électrons pour balayer l'écran.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §2.4 — RAIL DE LAPLACE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§2.4</span></div>
+      <h2>Le rail de Laplace</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Une barre posée sur deux rails, dans un champ : envoie le courant, elle glisse.</p>
+      <p>C'est la démonstration de référence. Le courant traverse la barre, le champ est là, la force apparaît — et la barre roule toute seule. Inverse le courant : elle repart dans l'autre sens. C'est déjà, en germe, un moteur.</p>
+    </div>
+
+    <!-- SCHÉMA R -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma B</span>
+        <span class="figure__title">La barre qui roule</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvR"></canvas></div>
+      <div class="controls">
+        <div class="slider">
+          <div class="slider__top"><span>Intensité du courant</span><b id="rIval">5 A</b></div>
+          <input type="range" id="rI" min="0.15" max="1" step="0.01" value="0.5">
+        </div>
+        <button class="btn btn--accent" id="rDir" style="flex-basis:100%">Sens du courant ⇄</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="rHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Force F (déplacement)</span>
+        <span class="lg"><span class="sw" style="background:var(--ink)"></span> Courant I</span>
+        <span class="lg">⊗ = champ perpendiculaire (vers le fond)</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ §2.5 — APPLICATIONS ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§2.5</span></div>
+      <h2>Vu-mètre et haut-parleur</h2>
+    </div>
+    <div class="sec-body">
+      <p>Le <strong>vu-mètre</strong> à aiguille est une bobine dans un aimant : plus le courant est fort, plus la force fait dévier l'aiguille. Tu lis directement le niveau.</p>
+      <p>Le <strong>haut-parleur</strong> est le même principe en version rapide : le courant du son change sans arrêt, la bobine est donc poussée d'avant en arrière, et la membrane recopie le son dans l'air. Retiens ce couple — au cours 5, on le fait marcher <strong>à l'envers</strong> pour fabriquer un micro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §2.6 — LOI D'AMPÈRE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">§2.6</span></div>
+      <h2>Deux fils qui se parlent : la loi d'Ampère</h2>
+    </div>
+    <div class="sec-body">
+      <p class="lead-line">Deux fils parcourus par un courant s'attirent ou se repoussent.</p>
+      <p>Même sens de courant : ils <strong>s'attirent</strong>. Sens opposés : ils <strong>se repoussent</strong>. Chaque fil crée un champ, et l'autre fil, traversé par un courant, y subit une force de Laplace.</p>
+      <p>Point important du cours : cette force est <strong>magnétique, pas électrique</strong>. La preuve ? Une <strong>cage de Faraday</strong> bloquerait un champ électrique, mais ne change <strong>rien</strong> à cette attraction. Donc le responsable, c'est bien le magnétisme.</p>
+    </div>
+
+    <!-- SCHÉMA W -->
+    <figure class="figure">
+      <div class="figure__head">
+        <span class="figure__tag">Schéma C</span>
+        <span class="figure__title">Attraction ou répulsion de deux fils</span>
+      </div>
+      <div class="figure__stage"><canvas id="cvW"></canvas></div>
+      <div class="controls">
+        <button class="btn btn--accent" id="wDir" style="flex-basis:100%">Sens des courants ⇄</button>
+        <div class="slider" style="flex-basis:100%">
+          <div class="slider__top" id="wHint" style="text-transform:none;letter-spacing:0;font-size:11.5px"></div>
+        </div>
+      </div>
+      <div class="figure__legend">
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span> Force F</span>
+        <span class="lg">⊙ = courant qui sort de l’écran &nbsp;·&nbsp; ⊗ = qui entre</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ SUR UN PLATEAU ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <span class="callout__label">Sur un plateau</span>
+      <h3>Là où la force de Laplace travaille pour toi</h3>
+      <p>Chaque <strong>enceinte</strong> de retour, chaque <strong>casque</strong>, chaque <strong>vu-mètre</strong> à aiguille fonctionne par force de Laplace. Et quand deux <strong>câbles de forte puissance</strong> couchés côte à côte semblent « vibrer » l'un vers l'autre lors d'un appel de courant, c'est la loi d'Ampère — pas un fantôme.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MINI-QUIZ ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">QCM</span></div>
+      <h2>Le QCM du cours — correction immédiate</h2>
+    </div>
+
+    <div class="quiz">
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 01</div>
+        <div class="q__text">Dans quelle direction agit la force de Laplace&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Dans le sens du courant</button>
+          <button class="opt"><span class="key">B</span> Perpendiculaire au courant ET au champ</button>
+          <button class="opt"><span class="key">C</span> Dans le sens du champ</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Elle est <strong>perpendiculaire aux deux</strong>. Inverse le courant ou le champ, elle s'inverse.</div>
+      </div>
+
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 02</div>
+        <div class="q__text">F = B·I·L. Si tu doubles le courant I&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> La force ne change pas</button>
+          <button class="opt"><span class="key">B</span> La force double</button>
+          <button class="opt"><span class="key">C</span> La force est divisée par deux</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> La force est <strong>proportionnelle</strong> à I : double le courant, tu doubles la force.</div>
+      </div>
+
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 03</div>
+        <div class="q__text">Que fait un haut-parleur&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Il transforme le son en courant</button>
+          <button class="opt"><span class="key">B</span> Il transforme un courant en mouvement (donc en son)</button>
+          <button class="opt"><span class="key">C</span> Il transforme la lumière en son</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Entrée = courant, sortie = mouvement de la membrane. Le <strong>micro dynamique</strong> fait l'inverse (cours 5).</div>
+      </div>
+
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 04</div>
+        <div class="q__text">Sur quel principe repose un vu-mètre à aiguille&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> La force de Laplace sur une bobine</button>
+          <button class="opt"><span class="key">B</span> L'induction</button>
+          <button class="opt"><span class="key">C</span> L'échauffement du fil</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Une bobine dans un aimant : la force est <strong>proportionnelle au courant</strong>, l'aiguille dévie d'autant.</div>
+      </div>
+
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 05</div>
+        <div class="q__text">Le rail de Laplace montre&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Une barre poussée quand un courant la traverse dans un champ</button>
+          <button class="opt"><span class="key">B</span> Un aimant qui lévite tout seul</button>
+          <button class="opt"><span class="key">C</span> Un fil qui chauffe et fond</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Courant + champ → <strong>force</strong> : la barre glisse. Inverse le courant, elle repart dans l'autre sens.</div>
+      </div>
+
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 06</div>
+        <div class="q__text">Deux fils parcourus par un courant de même sens&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> S'attirent</button>
+          <button class="opt"><span class="key">B</span> Se repoussent</button>
+          <button class="opt"><span class="key">C</span> N'ont aucun effet l'un sur l'autre</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Même sens → <strong>attraction</strong> (loi d'Ampère). Sens opposés → répulsion.</div>
+      </div>
+
+      <div class="q" data-correct="1">
+        <div class="q__num">Question 07</div>
+        <div class="q__text">L'expérience des deux fils dans une cage de Faraday prouve que la force est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Électrique</button>
+          <button class="opt"><span class="key">B</span> Magnétique</button>
+          <button class="opt"><span class="key">C</span> Due à la gravité</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> La cage bloque les champs électriques mais l'attraction subsiste : la force est <strong>magnétique</strong>.</div>
+      </div>
+
+      <div class="q" data-correct="0">
+        <div class="q__num">Question 08</div>
+        <div class="q__text">À l'échelle de l'électron, d'où vient la force de Laplace&nbsp;?</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> De la force de Lorentz</button>
+          <button class="opt"><span class="key">B</span> De la poussée d'Archimède</button>
+          <button class="opt"><span class="key">C</span> De l'effet photoélectrique</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Chaque électron en mouvement subit la <strong>force de Lorentz</strong> ; additionnée sur tout le fil, elle donne la force de Laplace.</div>
+      </div>
+      <div class="quiz-sep"><span class="quiz-sep__tag">Pièges</span> Un cran plus dur — pour valider qu'on a tout relié</div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 09 · piège</div>
+        <div class="q__text">Un fil parcouru par un courant est placé <em>parallèle</em> au champ B. La force de Laplace est&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Maximale</button>
+          <button class="opt"><span class="key">B</span> Nulle (il faut une composante perpendiculaire)</button>
+          <button class="opt"><span class="key">C</span> Dans le sens du courant</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> F est maximale quand le fil est <strong>perpendiculaire</strong> au champ ; parallèle → force <strong>nulle</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="1">
+        <div class="q__num">Question 10 · piège</div>
+        <div class="q__text">Tu doubles le courant ET tu utilises un aimant deux fois plus fort. La force est multipliée par&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> 2</button>
+          <button class="opt"><span class="key">B</span> 4</button>
+          <button class="opt"><span class="key">C</span> Elle ne change pas</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> F = B·I·L dépend de B <em>et</em> de I : ×2 et ×2 → <strong>×4</strong>.</div>
+      </div>
+      <div class="q q--hard" data-correct="0">
+        <div class="q__num">Question 11 · piège</div>
+        <div class="q__text">Vu-mètre à aiguille et haut-parleur reposent sur&nbsp;:</div>
+        <div class="q__opts">
+          <button class="opt"><span class="key">A</span> Le même principe (la force de Laplace)</button>
+          <button class="opt"><span class="key">B</span> Deux principes opposés</button>
+          <button class="opt"><span class="key">C</span> L'effet Joule (chaleur)</button>
+        </div>
+        <div class="q__feedback"><b>Correction</b> Les deux : une bobine dans un aimant, <strong>poussée par le courant</strong>.</div>
+      </div>
+    </div>
+    <div class="quiz__score" id="quizScore">Réponds aux 11 questions ci-dessus.</div>
+  </div>
+</section>
+
+<!-- ============ GLOSSAIRE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span class="num">Glossaire</span></div>
+      <h2>Les mots du Cours 2</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER / NAV ============ -->
+<footer class="footnav">
+  <div class="wrap">
+    <a class="nextcard nextcard--go" href="cours-3.html">
+      <div class="nextcard__l">
+        <div class="k">Cours 03 · suivant</div>
+        <div class="t">Moteur, Lenz-Faraday, générateur</div>
+      </div>
+      <div class="nextcard__r nextcard__r--go">Lire →</div>
+    </a>
+    <div class="colophon">
+      <span><a href="cours-1.html" style="color:var(--ink-3)">← Cours 01</a></span>
+      <span class="dotsep"></span>
+      <span>Cours 02 / 07</span>
+      <span class="dotsep"></span>
+      <span><a href="index.html" style="color:var(--ink-3)">Sommaire</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Glossaire : données injectées -->
+<script id="glossData" type="application/json">
+[
+ ["Force de Laplace","La force qu'un champ magnétique exerce sur un fil parcouru par un courant. Elle vaut F = B·I·L et s'exerce perpendiculairement au courant et au champ. C'est elle qui met en mouvement moteurs, haut-parleurs et vu-mètres.","Ce qui pousse la membrane d'un haut-parleur."],
+ ["Force de Lorentz","La force subie par une charge en mouvement dans un champ magnétique (F = q·v·B). C'est l'origine microscopique de la force de Laplace : additionnée sur tous les électrons du fil, elle donne la poussée sur le fil entier.","La déviation du faisceau d'électrons dans un tube cathodique."],
+ ["Intensité (I)","La quantité de courant qui circule, mesurée en ampères (A). Dans F = B·I·L, doubler l'intensité double la force.","Le débit d'électrons dans le fil."],
+ ["Rail de Laplace","Le montage de démonstration du programme : une barre conductrice posée sur deux rails, dans un champ. Quand le courant traverse la barre, la force de Laplace la fait glisser ; inverser le courant inverse le sens.","L'ancêtre du moteur électrique."],
+ ["Vu-mètre (galvanomètre)","Un appareil de mesure où une bobine placée dans un aimant subit une force proportionnelle au courant : l'aiguille dévie d'autant plus que le courant est fort.","L'aiguille de niveau d'une console son."],
+ ["Haut-parleur","Une bobine solidaire d'une membrane, plongée dans l'aimant. Le courant du signal audio la traverse, la force de Laplace la fait avancer et reculer, et la membrane recrée le son dans l'air.","Le micro dynamique fait exactement l'inverse (cours 5)."],
+ ["Loi d'Ampère","Deux fils parcourus par des courants exercent l'un sur l'autre une force magnétique : même sens ils s'attirent, sens opposés ils se repoussent. Chaque fil crée un champ, et l'autre y subit une force de Laplace.","Deux gros câbles qui semblent « tirer » l'un vers l'autre lors d'un appel de courant."],
+ ["Cage de Faraday","Une enveloppe conductrice qui arrête les champs électriques, mais pas l'interaction magnétique. Dans l'expérience des deux fils, elle ne change rien à l'attraction : preuve que cette force est bien magnétique.","Le blindage d'un câble, qui stoppe les parasites électriques."]
+]
+</script>
+<script>
+(function(){
+  var data=JSON.parse(document.getElementById('glossData').textContent);
+  var host=document.getElementById('gloss');
+  data.forEach(function(d,i){
+    var n=(i+1<10?'0':'')+(i+1);
+    var div=document.createElement('div');
+    div.className='gterm';
+    div.innerHTML='<button class="gterm__btn"><span class="gi">'+n+'</span>'+
+      '<span class="gt">'+d[0]+'</span><span class="gx">+</span></button>'+
+      '<div class="gterm__panel"><div class="gterm__inner"><p>'+d[1]+'</p>'+
+      (d[2]?'<p class="ana">'+d[2]+'</p>':'')+'</div></div>';
+    host.appendChild(div);
+  });
+})();
+</script>
+
+<script src="js/engine.js"></script>
+<script src="js/course-2.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
