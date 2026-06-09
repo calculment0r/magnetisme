@@ -114,7 +114,7 @@ function initL(){
 function initR(){
   var cv=document.getElementById('cvR'); if(!cv) return;
   var fig=new Figure(cv, 0.62);
-  var state={I:0.5, dir:+1, x:0.30, last:-1};
+  var state={I:0.5, dir:+1, field:+1, x:0.30, last:-1};
   fig.compute=function(){
     fig.topY=fig.H*0.30; fig.botY=fig.H*0.80;
     fig.x0=fig.W*0.18; fig.x1=fig.W*0.90;
@@ -123,11 +123,12 @@ function initR(){
     var ctx=fig.ctx, W=fig.W, H=fig.H;
     var x0=fig.x0, x1=fig.x1, topY=fig.topY, botY=fig.botY, my=(topY+botY)/2;
     ctx.clearRect(0,0,W,H);
-    fieldGrid(ctx, W, H, true, 0.14);
-    caption(ctx, 'B : champ ⊗ (perpendiculaire à l’écran)', 12, 18);
-    // avance de la barre (vitesse ∝ ampérage)
+    var eff=state.dir*state.field;   // sens de la force = sens du courant × sens du champ
+    fieldGrid(ctx, W, H, state.field>0, 0.14);
+    caption(ctx, 'B : champ '+(state.field>0?'⊗ (entre dans l’écran)':'⊙ (sort de l’écran)'), 12, 18);
+    // avance de la barre (vitesse ∝ ampérage ; sens = courant × champ)
     var dt=0; if(state.last>=0 && t>=state.last && t-state.last<0.2) dt=t-state.last; state.last=t;
-    if(!REDUCE) state.x += dt*state.I*state.dir*0.42;
+    if(!REDUCE) state.x += dt*state.I*eff*0.42;
     if(state.x>0.90) state.x=0.06; if(state.x<0.06) state.x=0.90;
     var bx=x0 + (x1-x0)*state.x;
     // rails + connecteur gauche (gris, pour que les billes de courant ressortent)
@@ -158,19 +159,21 @@ function initR(){
     // label I + force F
     ctx.fillStyle=COL.ink; ctx.textAlign='center'; ctx.font='700 13px JetBrains Mono, monospace';
     ctx.fillText('I', (x0+bx)/2, topY-9);
-    vector(ctx, bx + d*12, my, d>0?0:Math.PI, 40, COL.accent, 5);
+    vector(ctx, bx + eff*12, my, eff>0?0:Math.PI, 40, COL.accent, 5);
     ctx.fillStyle=COL.accent; ctx.textAlign='center'; ctx.font='700 14px JetBrains Mono, monospace';
-    ctx.fillText('F', bx + d*40, my-12);
+    ctx.fillText('F', bx + eff*40, my-12);
   };
   var sl=document.getElementById('rI'), v=document.getElementById('rIval'),
-      bd=document.getElementById('rDir'), hint=document.getElementById('rHint');
+      bd=document.getElementById('rDir'), bf=document.getElementById('rField'), hint=document.getElementById('rHint');
   function refresh(){
     v.textContent=(state.I*10).toFixed(0)+' A';
-    hint.textContent='Le courant fait le tour du circuit (à la même vitesse partout) et traverse la barre → la force F la pousse vers la '+
-      (state.dir>0?'droite':'gauche')+'. Inverse le courant : elle repart dans l’autre sens.';
+    var eff=state.dir*state.field;
+    hint.textContent='Le courant traverse la barre dans le champ → la force F la pousse vers la '+
+      (eff>0?'droite':'gauche')+'. Inverse le courant OU le champ : la force s’inverse.';
   }
   sl.addEventListener('input', function(){ state.I=parseFloat(sl.value); refresh(); MAG.kick(); });
   bd.addEventListener('click', function(){ state.dir*=-1; refresh(); MAG.kick(); });
+  if(bf) bf.addEventListener('click', function(){ state.field*=-1; refresh(); MAG.kick(); });
   refresh(); fig.resize();
 }
 
