@@ -105,12 +105,19 @@ function initA(){
       arrowAt(ctx, pts, 0.5, 5.5, 'rgba(13,13,14,.55)');
     });
     fig.mags.forEach(function(m){ drawMagnet(ctx, m.cx, m.flip); });
+    // repère d'interactivité : le 2ᵉ aimant se glisse au doigt
+    if(state.two && state.drag===0){
+      var m2=fig.mags[fig.mags.length-1];
+      ctx.fillStyle=COL.accent; ctx.font='600 12px JetBrains Mono, monospace';
+      ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+      ctx.fillText('↔ glisse-moi', m2.cx, fig.cy - fig.bh/2 - 12);
+    }
   };
   var dragging=false, startX=0, startDrag=0;
   function px(e){ var r=cv.getBoundingClientRect(); return (e.touches?e.touches[0].clientX:e.clientX)-r.left; }
   cv.addEventListener('pointerdown', function(e){
     if(!state.two) return;
-    dragging=true; startX=px(e); startDrag=state.drag; cv.setPointerCapture(e.pointerId);
+    dragging=true; cv.style.cursor='grabbing'; startX=px(e); startDrag=state.drag; cv.setPointerCapture(e.pointerId);
   });
   cv.addEventListener('pointermove', function(e){
     if(!dragging) return;
@@ -118,12 +125,13 @@ function initA(){
     state.drag=Math.max(-fig.bw*0.9, Math.min(fig.bw*2.4, startDrag+d));
     fig.compute(); fig.draw(0);
   });
-  cv.addEventListener('pointerup', function(){ dragging=false; });
-  cv.addEventListener('pointercancel', function(){ dragging=false; });
+  cv.addEventListener('pointerup', function(){ dragging=false; cv.style.cursor=state.two?'grab':'default'; });
+  cv.addEventListener('pointercancel', function(){ dragging=false; cv.style.cursor=state.two?'grab':'default'; });
   var bToggle=document.getElementById('aToggle');
   var bFlip=document.getElementById('aFlip');
   var hint=document.getElementById('aHint');
   function refreshUI(){
+    cv.style.cursor = state.two ? 'grab' : 'default';
     bToggle.textContent = state.two ? '◖ 1 aimant' : '◗ 2 aimants';
     bFlip.style.display = state.two ? '' : 'none';
     if(state.two){
