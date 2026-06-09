@@ -80,8 +80,8 @@ function initA(){
     roundRect(ctx,x,y,w,h,r); ctx.lineWidth=1; ctx.strokeStyle='rgba(13,13,14,.25)'; ctx.stroke();
     ctx.fillStyle='#fff'; ctx.font='600 '+Math.round(h*0.5)+'px JetBrains Mono, monospace';
     ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('N', x+w*0.25, fig.cy+1);
-    ctx.fillText('S', x+w*0.75, fig.cy+1);
+    ctx.fillText(leftN?'N':'S', x+w*0.25, fig.cy+1);
+    ctx.fillText(leftN?'S':'N', x+w*0.75, fig.cy+1);
     ctx.restore();
   }
   fig.draw=function(t){
@@ -127,16 +127,16 @@ function initA(){
     bToggle.textContent = state.two ? '◖ 1 aimant' : '◗ 2 aimants';
     bFlip.style.display = state.two ? '' : 'none';
     if(state.two){
-      bFlip.textContent = state.flipped ? 'Pôles opposés ⇄' : 'Mêmes pôles ⇄';
+      bFlip.textContent = 'Retourner le 2ᵉ aimant ⇄';
       hint.textContent = state.flipped
-        ? 'ATTRACTION — N face à S, les lignes se rejoignent. Glisse le 2ᵉ aimant.'
-        : 'RÉPULSION — N face à N, les lignes se repoussent. Glisse le 2ᵉ aimant.';
+        ? 'RÉPULSION — deux pôles identiques se font face (S et S), les lignes se repoussent. Glisse le 2ᵉ aimant.'
+        : 'ATTRACTION — un Nord et un Sud se font face, les lignes se rejoignent. Glisse le 2ᵉ aimant.';
     }else{
-      hint.textContent = 'Un seul aimant : les lignes sortent du N, entrent au S.';
+      hint.textContent = 'Un seul aimant : les lignes sortent du Nord, entrent au Sud.';
     }
   }
   bToggle.addEventListener('click', function(){
-    state.two=!state.two; if(state.two){ state.drag=0; state.flipped=true; }
+    state.two=!state.two; if(state.two){ state.drag=0; state.flipped=false; }
     fig.compute(); fig.draw(0); refreshUI();
   });
   bFlip.addEventListener('click', function(){
