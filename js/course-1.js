@@ -227,28 +227,23 @@ function initC(){
   fig.draw=function(t){
     var ctx=fig.ctx, W=fig.W, H=fig.H, cx=fig.cx, cy=fig.cy;
     ctx.clearRect(0,0,W,H);
-    var s = state.out?+1:-1;
-    var nRings=Math.round(3+state.I*4);
-    var phase=REDUCE?0:(t*0.5);
+    var s = state.out?+1:-1;                 // +1 = courant vers toi (⊙)
+    var nRings=Math.round(2+state.I*4);      // plus d'intensité = plus d'anneaux (champ plus fort)
     for(var i=1;i<=nRings;i++){
-      var base=i/(nRings+0.4);
-      var raw=base + (s>0? phase : -phase);
-      var drift=raw-Math.floor(raw);           // modulo toujours dans [0,1) (sinon rayon négatif → crash)
-      var r=fig.maxR*drift*0.96+8;
-      var alpha=(0.13+0.5*state.I)*(1-Math.abs(drift-0.5)*1.1);
-      if(alpha<=0.02) continue;
-      ctx.strokeStyle=COL.ink; ctx.globalAlpha=Math.max(0,alpha);
-      ctx.lineWidth=1.4+state.I*1.4;
+      var r=fig.maxR*(i/(nRings+0.3));       // rayons FIXES : les anneaux ne bougent pas
+      var alpha=0.14+0.45*state.I;
+      ctx.strokeStyle=COL.ink; ctx.globalAlpha=alpha; ctx.lineWidth=1.5;
       ctx.beginPath(); ctx.arc(cx,cy,r,0,7); ctx.stroke();
-      ctx.globalAlpha=Math.max(0,alpha)*1.2;
-      for(var k=0;k<4;k++){
-        var ang=k*Math.PI/2 + (s>0?0:Math.PI);
+      // flèches tangentielles : elles donnent le SENS du champ (qui s'inverse avec le courant)
+      ctx.globalAlpha=Math.min(1,alpha+0.3);
+      for(var k=0;k<3;k++){
+        var ang=(k/3)*Math.PI*2 + i*0.3;     // positions fixes (léger décalage par anneau)
         var ax=cx+Math.cos(ang)*r, ay=cy+Math.sin(ang)*r;
-        var tang=ang+ (s>0? Math.PI/2 : -Math.PI/2);
+        var tang=ang - s*Math.PI/2;          // sens horaire / anti-horaire selon le courant
         ctx.save(); ctx.translate(ax,ay); ctx.rotate(tang);
         ctx.fillStyle=COL.accent;
-        var sz=8+state.I*5;
-        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(-sz,sz*0.62); ctx.lineTo(-sz,-sz*0.62);
+        var sz=6+state.I*4;
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(-sz,sz*0.6); ctx.lineTo(-sz,-sz*0.6);
         ctx.closePath(); ctx.fill(); ctx.restore();
       }
     }
